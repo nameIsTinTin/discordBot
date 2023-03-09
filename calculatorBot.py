@@ -1,12 +1,11 @@
 import os
+from math import sqrt
 from discord import* 
 import discord
 from dotenv import load_dotenv
 
 from steam import Steam
 from decouple import config
-
-
 
 
 load_dotenv()
@@ -42,8 +41,6 @@ async def on_message(message):
     
     elif sentMessage.startswith('!'): # this makes it so that the message has to start with ! for it to respond
         
-        #await message.channel.send("I am {0.user}".format(client).split("#")[0] + ". !info for what I can do.")
-        
         tempString = sentMessage.split(" ")[0]
         
         match tempString:
@@ -56,18 +53,6 @@ async def on_message(message):
             
             case "!steamID": 
                 await steamID(sentMessage, message)
-
-            # case "!add":
-            #     await mathAdd(sentMessage, message)
-
-            # case "!multiply":
-            #     await mathMultiply(sentMessage, message)
-
-            # case "!divide":
-            #     await mathDivide(sentMessage, message)
-
-            # case "!minus": 
-            #     await mathMinus(sentMessage, message)
 
             case "!info":
                 await readInfo(message)
@@ -138,75 +123,6 @@ async def readInfo(message):
     file1 = open("help.txt","r+")
     await message.channel.send(file1.read())
 
-
-# async def mathMinus(sentMessage, message):
-    
-#     value = float(sentMessage.split(" ")[1])
-#     if len(sentMessage.split(" ")) > 1:
-#         for i in sentMessage.split(" ")[2:]:
-#             try:
-#                 value -= float(i)
-#             except:
-#                if float(i) == 0.0:
-#                 await message.channel.send("ERROR ERROR ERROR")
-#                 return
-#                elif i != "-" and i != "":
-#                 await message.channel.send("You seem to have an invalid value or an incorrect syntax inside of your command : " + str(i) + "\n" + 
-#                                                 "Valid values have spaces in between characters such as !minus 1 1 1")
-    
-        
-#     await message.channel.send(str(value))
-
-# async def mathDivide(sentMessage, message):
-    
-#     value = float(sentMessage.split(" ")[1])
-#     #print(value)
-#     if len(sentMessage.split(" ")) > 1:
-#         for i in sentMessage.split(" ")[2:]:
-#             try:
-#                 value /= float(i)
-#             except:
-#                if i != "/" and i != "":
-#                 await message.channel.send("You seem to have an invalid value or an incorrect syntax inside of your command : " + str(i) + "\n" + 
-#                                                 "Valid values have spaces in between characters such as !divide 1 1 1")
-    
-        
-#     await message.channel.send(str(value))
-
-# async def mathMultiply(sentMessage, message):
-#     value = 1
-    
-#     for i in sentMessage.split(" ")[1:]:
-#         try:
-#             value *= float(i)
-#         except:
-#             if len(sentMessage.split(" ")) == 1:
-#                 await message.channel.send("Please ensure you have spaces in between your values")
-#             elif i != "*" and i != "":
-#                 await message.channel.send("You seem to have an invalid value or an incorrect syntax inside of your command : " + str(i) + "\n" + 
-#                                            "Valid values have spaces in between characters such as !multiply 1 1 1")
-    
-        
-#     await message.channel.send(str(value))
-
-
-
-# async def mathAdd(sentMessage, message):
-#     value = 0 
-#     sentMessage = sentMessage[5:]
-#     for i in sentMessage.split(" "):
-#         try:
-#             value += float(i)
-#         except:
-#             if len(sentMessage.split(" ")) == 1:
-#                 await message.channel.send("Please ensure you have spaces in between your values")
-#             elif i != "+" and i != "":
-#                 await message.channel.send("You seem to have an invalid value or an incorrect syntax inside of your command : " + str(i) + "\n" + 
-#                                            "Valid values have spaces in between characters such as !add 1 1 1")
-    
-        
-#     await message.channel.send(str(value))
- 
 
 client.run(token)
 

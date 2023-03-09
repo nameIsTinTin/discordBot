@@ -3,9 +3,8 @@
 
 !calculate allows me to maths. 
 For example: !calculate 5 + 5 --> 10.0 
-The smaller terms below allows specific math problems in different format.
 
-!steamUser [username] or !steamID [ID] allows me to find your steam username, steam ID, steam URL, steam level and your recent games !
+!steamUser [username] or !steamID [ID] allows me scan your steam profile statistics. 
                                                                                                   
 !defeatMyEnemies
 

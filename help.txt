@@ -1,11 +1,12 @@
-!add allows me to add up all of your values followed by the command. 
-For example: !add 5 5 --> 10.0 
+```
+!info allows me to bring up this list of commands 
 
-!divide allows me to divide all of your values followed by the command (don't add zero after your first number!)
-For example: !divide 5 5 --> 1.0 
+!calculate allows me to maths. 
+For example: !calculate 5 + 5 --> 10.0 
+The smaller terms below allows specific math problems in different format.
 
-!multiply allows me to multiply all of your values followed by the command. 
-For example: !multiply 5 5 --> 25.0 
+!steamUser [username] or !steamID [ID] allows me to find your steam username, steam ID, steam URL, steam level and your recent games !
+                                                                                                  
+!defeatMyEnemies
 
-!minus allows me to subtract all of your values followed by the command. 
-For example: !minus 5 5 --> 0.0
+```

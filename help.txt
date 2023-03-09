@@ -1,0 +1,11 @@
+!add allows me to add up all of your values followed by the command. 
+For example: !add 5 5 --> 10.0 
+
+!divide allows me to divide all of your values followed by the command (don't add zero after your first number!)
+For example: !divide 5 5 --> 1.0 
+
+!multiply allows me to multiply all of your values followed by the command. 
+For example: !multiply 5 5 --> 25.0 
+
+!minus allows me to subtract all of your values followed by the command. 
+For example: !minus 5 5 --> 0.0

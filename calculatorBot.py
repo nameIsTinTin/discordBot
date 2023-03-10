@@ -3,7 +3,7 @@ from math import sqrt
 from discord import* 
 import discord
 from dotenv import load_dotenv
-
+import time
 from steam import Steam
 from decouple import config
 
@@ -18,10 +18,11 @@ client = discord.Client(intents=intents)
 steam = Steam(steamKey)
 
 
-print(steam.users.get_user_details("76561198068524273"))
-games = steam.users.get_user_recently_played_games("76561198068524273")
-print(games["total_count"])
-print(games["games"][0]["name"])
+#print(steam.users.get_owned_games("76561198068524273"))
+#print(steam.apps.get_app_details(105600))
+#games = steam.users.get_user_recently_played_games("76561198068524273")
+#print(steam.users.get_user_friends_list("76561198068524273"))
+
 
 
 
@@ -48,6 +49,9 @@ async def on_message(message):
             case "!calculate":
                 await math(sentMessage, message)
 
+            case "!steamAssets":
+                await steamAssets(sentMessage, message)
+                
             case "!steamUser":
                 await steamUser(sentMessage, message)
             
@@ -60,6 +64,31 @@ async def on_message(message):
             case "!defeatMyEnemies":
                 await defeatMyEnemies(message)
 
+async def steamAssets(sentMessage, message):
+    steamLibrary = steam.users.get_owned_games(sentMessage.split(" ")[1])
+    steamUser = steam.users.get_user_details(sentMessage)["player"]["personaname"]
+    value = 0 
+    mostExpensiveGame = 0 
+    gameCount = steamLibrary["game_count"]
+    for i in range(int(gameCount)):
+        if i % 100 == 0:
+            time.sleep(1) # Prevents discord from pausing the bot due to too much going on.
+        currentGame = steamLibrary["games"][i]["name"]
+        gameSearched = steam.apps.search_games(currentGame)
+        
+        if(len(gameSearched["apps"]) > 0):
+            gamePrice = gameSearched["apps"][0]["price"]
+            if gamePrice.startswith("$"):
+                value += float(gamePrice[1:])
+                if float(gamePrice[1:]) > mostExpensiveGame:
+                    mostExpensiveGame = float(gamePrice[1:])
+                    leastCheapGame = currentGame
+                    
+    
+    
+    await message.channel.send(steamUser + "'s total steam library is worth: $" + str(value) + "\n" + 
+                            steamUser + "'s most expensive game is: " + leastCheapGame + " ($" + str(mostExpensiveGame) + ")")
+        
 async def findUserRecentGames(steamGames):
     steamRecentGames = ""
     for i in range(int(steamGames["total_count"])):

@@ -7,6 +7,8 @@ For example: !calculate 5 + 5 --> 10.0
 !steamUser [username] or !steamID [ID] allows me scan your steam profile statistics. 
 
 !streamAssets [ID] allows me to calculate your entire steam library's worth + find the most expensive game.
+
+!steamCompare [ID] [ID2] allows me to find and list out the common games between these two steam ID's.
                                                                                                   
 !defeatMyEnemies
 

@@ -23,9 +23,6 @@ steam = Steam(steamKey)
 #games = steam.users.get_user_recently_played_games("76561198068524273")
 #print(steam.users.get_user_friends_list("76561198068524273"))
 
-
-
-
 @client.event
 async def on_ready():
     print("We have logged in as {0.user}".format(client).split("#")[0])
@@ -54,6 +51,9 @@ async def on_message(message):
                 
             case "!steamUser":
                 await steamUser(sentMessage, message)
+
+            case "!steamCompare":
+                await steamCompare(sentMessage, message)
             
             case "!steamID": 
                 await steamID(sentMessage, message)
@@ -63,6 +63,29 @@ async def on_message(message):
 
             case "!defeatMyEnemies":
                 await defeatMyEnemies(message)
+
+async def steamCompare(sentMessage, message):
+    firstLibrary = steam.users.get_owned_games(sentMessage.split(" ")[1])
+    secondLibrary = steam.users.get_owned_games(sentMessage.split(" ")[2])
+    firstUser = steam.users.get_user_details(sentMessage.split(" ")[1])["player"]["personaname"]
+    secondUser = steam.users.get_user_details(sentMessage.split(" ")[2])["player"]["personaname"]
+    similarGames = {}
+    sameGames = []
+
+
+    for i in range(firstLibrary["game_count"]):
+        similarGames[firstLibrary["games"][i]["name"]] = 1
+    
+    for j in range(secondLibrary["game_count"]):
+
+        try:
+            similarGames[secondLibrary["games"][j]["name"]] += 1
+            sameGames.append(secondLibrary["games"][j]["name"])
+        except:
+            similarGames[secondLibrary["games"][j]["name"]] = 1
+
+    await message.channel.send(firstUser + "'s and " + secondUser + "'s common games: \n" + str(sorted(sameGames)))
+
 
 async def steamAssets(sentMessage, message):
     steamLibrary = steam.users.get_owned_games(sentMessage.split(" ")[1])
@@ -84,8 +107,7 @@ async def steamAssets(sentMessage, message):
                     mostExpensiveGame = float(gamePrice[1:])
                     leastCheapGame = currentGame
                     
-    
-    
+
     await message.channel.send(steamUser + "'s total steam library is worth: $" + str(value) + "\n" + 
                             steamUser + "'s most expensive game is: " + leastCheapGame + " ($" + str(mostExpensiveGame) + ")")
         
